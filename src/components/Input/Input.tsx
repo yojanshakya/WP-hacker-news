@@ -1,6 +1,6 @@
 import React, { ComponentPropsWithRef } from 'react'
 
-export default function Input(props : ComponentPropsWithRef<"input">) {
+export default function TextInput(props : ComponentPropsWithRef<"input">) {
 	
 	return (
 		<input {...props}/>

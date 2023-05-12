@@ -1,6 +1,6 @@
-import { Button } from "../../components/Button/Button";
-import TextInput from "../../components/Input/Input";
-import { Label } from "../../components/Label/Label";
+import { Button } from "../../../../components/Button/Button";
+import TextInput from "../../../../components/Input/Input";
+import { Label } from "../../../../components/Label/Label";
 
 interface IProps {
   searchText: string;
