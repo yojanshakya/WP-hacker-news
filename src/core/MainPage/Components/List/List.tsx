@@ -1,7 +1,11 @@
 import React, { PropsWithChildren, PropsWithoutRef } from 'react'
 import { Card } from '../../../../components/Card/Card'
+import { IListItem } from '../../types'
 
-export function List() {
+interface IProps {
+	news: Array<IListItem>
+}
+export function List(props: IProps) {
 	
 	// todo remove this
 	const ListItems  = [
@@ -11,7 +15,7 @@ export function List() {
 			author: "author",
 			storyURL: "www.helloworld.com",
 			noOfComments: 300,
-			time: new Date()
+			time: "new Date()"
 		},
 		{
 			likesCount: 400,
@@ -19,7 +23,7 @@ export function List() {
 			author: "author",
 			storyURL: "www.helloworld.com",
 			noOfComments: 300,
-			time: new Date()
+			time: "new Date()"
 		},
 		{
 			likesCount: 400,
@@ -27,13 +31,13 @@ export function List() {
 			author: "author",
 			storyURL: "www.helloworld.com",
 			noOfComments: 300,
-			time: new Date()
+			time: "new Date()"
 		},
 	] 
 
 	return (
 		<div>
-			{ListItems.map((item)=>(
+			{props.news.map((item)=>(
 				<Card {...item}/>
 			))}
 		</div>
