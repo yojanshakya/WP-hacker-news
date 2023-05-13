@@ -6,8 +6,6 @@ import { ISortBy } from "../../types";
 
 interface IProps {
   onSearch: () => void;
-  isPagination: boolean;
-  setIsPagination: React.Dispatch<React.SetStateAction<boolean>>;
 
   searchBy: string;
   setSearchBy: React.Dispatch<React.SetStateAction<string>>;
@@ -18,8 +16,6 @@ interface IProps {
 
 export default function  Filter({
   onSearch,
-  isPagination,
-  setIsPagination,
   searchBy,
   setSearchBy,
   sortBy,
@@ -60,15 +56,7 @@ export default function  Filter({
               <option value="latest">Latest</option>
             </select>
           </div>
-          <div className="input__container">
-            {/* todo: create component */}
-            <Label>Pagination</Label>
-            <input
-              type="checkbox"
-              checked={isPagination}
-              onChange={(e) => setIsPagination(e.target.checked)}
-            />
-          </div>
+          
         </div>
         <Button>Submit</Button>
       </div>

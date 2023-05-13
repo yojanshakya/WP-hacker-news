@@ -12,8 +12,27 @@
   justify-content: center;
   text-transform: capitalize;
   color: #07074d;
+  border: 1px solid #07074d;
 
   background: #ffffff;
   border-radius: 8px;
   padding: 8px 16px;
+
+  &__success {
+    background: #238636;
+    color: #fff;
+    border-radius: 8px;
+    border: 1px solid #238636;
+    &:hover {
+      background: #249b3c;
+    }
+  }
+
+  &__danger{
+    background-color: #C82333;
+    color: #fff;
+    &:hover{
+      background-color: #bd2130;
+    }
+  }
 }

@@ -67,7 +67,12 @@
 
 		&__pagination{
 			padding: .75rem;
-			text-align: right;
+			justify-content: end;
+			display: flex;
+			gap: .5rem;
+			align-items: center;
 		}
 	}
+
+	
 }

@@ -23,7 +23,8 @@ export default function MainPage() {
     // let hitsPerPage = 20;
 
     if (type === "search") {
-      page = isPagination ? 1 : paginationData.currPage;
+      setIsPagination(false);
+      page = 1;
     } else if (type === "next") {
       page = (paginationData.currPage || 0) + 1;
     } else {
@@ -55,7 +56,9 @@ export default function MainPage() {
 
   React.useEffect(() => {
     onFetchData("search");
-  }, []);
+  }, [isPagination]);
+
+  
 
   return (
     <div className="wrapper container">
@@ -66,14 +69,14 @@ export default function MainPage() {
       <div className="main">
         <Filter
           searchBy={search}
-          isPagination={isPagination}
-          setIsPagination={setIsPagination}
           setSearchBy={setSearch}
           setSortBy={setSortBy}
           sortBy={sortBy}
           onSearch={() => onFetchData("search")}
         />
         <List
+          setIsPagination={setIsPagination}
+          isPagination={isPagination}
           onPreviousClick={() => onFetchData("previous")}
           onNextClick={() => onFetchData("next")}
           news={news}
