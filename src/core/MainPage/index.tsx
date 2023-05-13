@@ -67,10 +67,10 @@ export default function MainPage() {
   const onPaginationToggle = () => {
     onFetchData("togglePagination");
   };
-  const onSearch = ()=>{
-    onFetchData("search")
-  }
-  const onPreviousClick = () => onFetchData("previous")
+  const onSearch = () => {
+    onFetchData("search");
+  };
+  const onPreviousClick = () => onFetchData("previous");
   const onNextClick = () => onFetchData("next");
 
   React.useEffect(() => {
@@ -78,35 +78,29 @@ export default function MainPage() {
   }, []);
 
   return (
-    <div className="wrapper container">
-      <div className="header">
-        <h1>Hacker News</h1>
-      </div>
-
-      <div className="main">
-        <Filter
-          searchBy={search}
-          setSearchBy={setSearch}
-          setSortBy={setSortBy}
-          sortBy={sortBy}
-          onSearch={onSearch}
+    <div className="main">
+      <Filter
+        searchBy={search}
+        setSearchBy={setSearch}
+        setSortBy={setSortBy}
+        sortBy={sortBy}
+        onSearch={onSearch}
+      />
+      {loading ? (
+        <div className="shadow-card flex-grow-1">Loading...</div>
+      ) : error ? (
+        <div className="shadow-card flex-grow-1">{error}</div>
+      ) : (
+        <List
+          onPaginationToggle={onPaginationToggle}
+          isPagination={isPagination}
+          onPreviousClick={onPreviousClick}
+          onNextClick={onNextClick}
+          news={news}
+          paginationData={paginationData}
+          viewPagination={isPagination}
         />
-        {loading ? (
-          <div className="shadow-card flex-grow-1">Loading...</div>
-        ) : error ? (
-          <div className="shadow-card flex-grow-1">{error}</div>
-        ) : (
-          <List
-            onPaginationToggle={onPaginationToggle}
-            isPagination={isPagination}
-            onPreviousClick={onPreviousClick}
-            onNextClick={onNextClick}
-            news={news}
-            paginationData={paginationData}
-            viewPagination={isPagination}
-          />
-        )}
-      </div>
+      )}
     </div>
   );
 }

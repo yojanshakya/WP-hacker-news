@@ -1,8 +1,12 @@
+import { Header } from "./components/Header/Header";
 import MainPage from "./core/MainPage";
 
 function App() {
   return (
-    <MainPage/>
+    <div className="wrapper container">
+      <Header/>
+      <MainPage/>
+    </div>
   );
 }
 
