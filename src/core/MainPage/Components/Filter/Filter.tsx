@@ -1,7 +1,7 @@
-import { useState } from "react";
 import { Button } from "../../../../components/Button/Button";
-import TextInput from "../../../../components/Input/Input";
+import TextInput from "../../../../components/Input/TextInput";
 import { Label } from "../../../../components/Label/Label";
+import { Select } from "../../../../components/Select/Select";
 import { ISortBy } from "../../types";
 
 interface IProps {
@@ -15,12 +15,14 @@ interface IProps {
 }
 
 export default function  Filter({
-  onSearch,
   searchBy,
   setSearchBy,
+  onSearch,
+
   sortBy,
   setSortBy,
 }: IProps) {
+
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     onSearch();
@@ -30,8 +32,8 @@ export default function  Filter({
     <form onSubmit={onSubmit}>
       <div className="filter">
         <h2 className="filter__title">Filter</h2>
-        <div className="filter__content" style={{ display: "flex" }}>
-          <div className="input__container" style={{ marginBottom: "1rem" }}>
+        <div className="filter__content">
+          <div className="input-container">
             <Label htmlFor="search">Search</Label>
             <TextInput
               id="search"
@@ -41,9 +43,9 @@ export default function  Filter({
                 setSearchBy(e.target.value)}}
             />
           </div>
-          <div className="input__container">
+          <div className="input-container">
             <Label htmlFor="sort">Sort By</Label>
-            <select
+            <Select
               name="sort"
               id="sort"
               value={sortBy}
@@ -54,7 +56,7 @@ export default function  Filter({
               <option value="">----</option>
               <option value="popularity">Popularity</option>
               <option value="latest">Latest</option>
-            </select>
+            </Select>
           </div>
           
         </div>

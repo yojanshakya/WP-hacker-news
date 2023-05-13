@@ -6,8 +6,12 @@
 
 	&__content{
 		width: 50%;
+		display: flex;
+		gap: 1rem;
+		margin-bottom: 1rem;
 	}
 	&__title{
+		font-size: 1.5em;
 		margin-bottom: 1rem;
 	}
 }

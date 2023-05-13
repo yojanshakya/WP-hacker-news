@@ -1,9 +1,8 @@
-import React, { ComponentPropsWithRef } from 'react'
+import { ComponentPropsWithRef } from 'react'
 
 export function Label(props: ComponentPropsWithRef<"label">) {
 	
-
 	return (
-		<label {...props}>{props.children}</label>
+		<label {...props} className={`label ${props.className ?? ""}`}>{props.children}</label>
 	)
 }

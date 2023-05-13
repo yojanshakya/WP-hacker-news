@@ -13,6 +13,7 @@ export default function MainPage() {
   const [sortBy, setSortBy] = useState<ISortBy>();
   const [isPagination, setIsPagination] = useState<boolean>(false);
 
+  // todo refactor
   const [paginationData, setPaginationData] = useState<IPaginationData>({
     noOfPages: 0,
     currPage: 0,
@@ -79,6 +80,7 @@ export default function MainPage() {
 
   return (
     <div className="main">
+      {/* todo button loading  */}
       <Filter
         searchBy={search}
         setSearchBy={setSearch}
