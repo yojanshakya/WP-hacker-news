@@ -20,7 +20,6 @@ describe("Card", () => {
 
     render(<Card {...blogData} index={1} />);
 
-		// assertions
 		const cardContents = screen.getByTestId(TEST_ID_CARD).textContent
     
 		expect(cardContents).toContain(blogData.author)
