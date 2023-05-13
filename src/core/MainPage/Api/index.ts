@@ -1,10 +1,9 @@
 import axios from 'axios'
-import { ISortBy } from '../types';
+import { IGetHackerNewsResponse,ISortBy } from '../types';
+import { CustomError } from '../../../utils/error';
+import { API_METHODS } from '../../../constants/api';
 
-// todo
-type IResponseType = any;
-
-export const fetchHackerNews = async ({ page,sortBy,search}: {
+export const fetchHackerNews = async ({ page,sortBy,search }: {
 	sortBy?: ISortBy,
 	search?: string,
 	page?: number,
@@ -23,18 +22,18 @@ export const fetchHackerNews = async ({ page,sortBy,search}: {
 	}
 
 
+	try {
+		const response = await axios<IGetHackerNewsResponse>(
+			{
+				method: API_METHODS.GET,
+				baseURL: import.meta.env.APP_BASE_URL,
+				params,
+				url
+			}
+		)
 
-	return axios<IResponseType>(
-		{
-			// todo store this in constant
-			method: "GET",
-			baseURL: import.meta.env.APP_BASE_URL,
-			params,
-			url
-		}
-	).then((response) => {
 		return {
-			data: response.data?.hits?.map((item: any) => ({
+			data: response.data?.hits?.map((item) => ({
 				likesCount: item.points,
 				title: item.title,
 				author: item.author,
@@ -49,6 +48,10 @@ export const fetchHackerNews = async ({ page,sortBy,search}: {
 			itemsPerPage: response.data?.hitsPerPage
 		}
 
-	})
+	} catch {
+		throw new CustomError("There was some error")
+	}
 }
+
+
 

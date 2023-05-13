@@ -1,5 +1,3 @@
-
-// todo
 // src : https://stackoverflow.com/questions/6108819/javascript-timestamp-to-relative-time
 export function timeDifference(current: number, previous :number) {
 

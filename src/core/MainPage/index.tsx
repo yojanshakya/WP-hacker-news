@@ -6,6 +6,8 @@ import { fetchHackerNews } from "./Api";
 
 export default function MainPage() {
   const [news, setNews] = useState<Array<IListItem>>([]);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const [search, setSearch] = useState("");
   const [sortBy, setSortBy] = useState<ISortBy>();
@@ -18,42 +20,58 @@ export default function MainPage() {
     itemsPerPage: 0,
   });
 
-  const onFetchData = async (type: "search" | "next" | "previous" | "togglePagination") => {
+  const onFetchData = async (
+    type: "search" | "next" | "previous" | "togglePagination"
+  ) => {
+    setLoading(true);
+    setError("");
+
     let page: number | undefined;
 
-    if(type === "togglePagination"){
+    if (type === "togglePagination") {
       page = isPagination ? undefined : 0;
-      setIsPagination((prev)=>!prev)
-    }else if (type === "search") {
-      setIsPagination(false)
+      setIsPagination((prev) => !prev);
+    } else if (type === "search") {
+      setIsPagination(false);
       page = undefined;
     } else if (type === "next") {
-      page = (paginationData.currPage) + 1;
+      page = paginationData.currPage + 1;
     } else {
       page =
         paginationData.currPage == 0
           ? paginationData.currPage
-          : (paginationData.currPage) - 1;
+          : paginationData.currPage - 1;
     }
 
-    const data = await fetchHackerNews({
-      search,
-      sortBy,
-      page,
-    });
+    try {
+      const data = await fetchHackerNews({
+        search,
+        sortBy,
+        page,
+      });
 
-    setNews(data.data);
-    setPaginationData({
-      currPage: data.page,
-      totalItems: data.totalItems,
-      noOfPages: data.noOfPage,
-      itemsPerPage: data.itemsPerPage,
-    });
+      setLoading(false);
+
+      setNews(data.data);
+      setPaginationData({
+        currPage: data.page,
+        totalItems: data.totalItems,
+        noOfPages: data.noOfPage,
+        itemsPerPage: data.itemsPerPage,
+      });
+    } catch (e: any) {
+      setError(e?.message || "There was some error");
+    }
   };
 
-  const onPaginationToggle = ()=>{
+  const onPaginationToggle = () => {
     onFetchData("togglePagination");
+  };
+  const onSearch = ()=>{
+    onFetchData("search")
   }
+  const onPreviousClick = () => onFetchData("previous")
+  const onNextClick = () => onFetchData("next");
 
   React.useEffect(() => {
     onFetchData("search");
@@ -71,18 +89,23 @@ export default function MainPage() {
           setSearchBy={setSearch}
           setSortBy={setSortBy}
           sortBy={sortBy}
-          onSearch={() => onFetchData("search")}
+          onSearch={onSearch}
         />
-        <List
-          onPaginationToggle={onPaginationToggle}
-          isPagination={isPagination}
-          // todo move to top
-          onPreviousClick={() => onFetchData("previous")}
-          onNextClick={() => onFetchData("next")}
-          news={news}
-          paginationData={paginationData}
-          viewPagination={isPagination}
-        />
+        {loading ? (
+          <div className="shadow-card flex-grow-1">Loading...</div>
+        ) : error ? (
+          <div className="shadow-card flex-grow-1">{error}</div>
+        ) : (
+          <List
+            onPaginationToggle={onPaginationToggle}
+            isPagination={isPagination}
+            onPreviousClick={onPreviousClick}
+            onNextClick={onNextClick}
+            news={news}
+            paginationData={paginationData}
+            viewPagination={isPagination}
+          />
+        )}
       </div>
     </div>
   );

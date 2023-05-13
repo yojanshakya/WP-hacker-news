@@ -1,16 +1,9 @@
-import React from "react";
 import { timeDifference } from "../../utils/time";
+import { IListItem } from "../../core/MainPage/types";
 
-// todo change this to reusable
-interface IProps {
-  likesCount: number;
-  title: string;
-  author: string;
-  storyURL: string;
-  noOfComments: number;
-  time: string;
+type IProps = IListItem & {
   index: number;
-}
+};
 
 export function Card(props: IProps) {
   return (
@@ -18,7 +11,9 @@ export function Card(props: IProps) {
     <div className="card">
       <a className="card__title" target="_blank" href={props.storyURL || ""}>
         {props.index}. {props.title}
-        <span className="card__sub-title"> ({props.storyURL})</span>
+        {props.storyURL && (
+          <span className="card__sub-title"> ({props.storyURL})</span>
+        )}
       </a>
       <p className="card__sub-title">
         {props.likesCount} likes | By {props.author}{" "}
