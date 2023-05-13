@@ -80,7 +80,6 @@ export default function MainPage() {
 
   return (
     <div className="main">
-      {/* todo button loading  */}
       <Filter
         searchBy={search}
         setSearchBy={setSearch}
