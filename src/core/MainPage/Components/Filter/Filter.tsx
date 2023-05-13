@@ -12,6 +12,8 @@ interface IProps {
 
   sortBy: ISortBy;
   setSortBy: React.Dispatch<React.SetStateAction<ISortBy>>;
+
+  isLoading: boolean;
 }
 
 export default function  Filter({
@@ -21,6 +23,8 @@ export default function  Filter({
 
   sortBy,
   setSortBy,
+
+  isLoading
 }: IProps) {
 
   const onSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
@@ -60,7 +64,7 @@ export default function  Filter({
           </div>
           
         </div>
-        <Button>Submit</Button>
+        <Button isLoading={isLoading} >Submit</Button>
       </div>
     </form>
   );

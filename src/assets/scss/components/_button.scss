@@ -18,7 +18,7 @@
   border-radius: 8px;
   padding: 8px 16px;
 
-  &:disabled{
+  &:disabled {
     cursor: not-allowed;
     opacity: 0.7;
   }
@@ -33,11 +33,11 @@
     }
   }
 
-  &__danger{
-    background-color: #C82333;
+  &__danger {
+    background-color: #c82333;
     color: #fff;
-    border: 1px solid #238636;
-    &:hover{
+    border: 1px solid #c82333;
+    &:hover {
       background-color: #bd2130;
     }
   }

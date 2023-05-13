@@ -7,15 +7,14 @@ type IProps = IListItem & {
 
 export function Card(props: IProps) {
   return (
-    // todo remove style
-    <div className="card">
-      <a className="card__title" target="_blank" href={props.storyURL || ""}>
+    <div >
+      <a className="item__title" target="_blank" href={props.storyURL || ""}>
         {props.index}. {props.title}
         {props.storyURL && (
-          <span className="card__sub-title"> ({props.storyURL})</span>
+          <span className="item__sub-title"> ({props.storyURL})</span>
         )}
       </a>
-      <p className="card__sub-title">
+      <p className="item__sub-title">
         {props.likesCount} likes | By {props.author}{" "}
         {timeDifference(Date.now(), new Date(props.time).getTime())} |{" "}
         {props.noOfComments} comments

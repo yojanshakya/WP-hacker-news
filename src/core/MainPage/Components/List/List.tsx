@@ -1,13 +1,14 @@
 import { Button, ButtonTypes } from "../../../../components/Button/Button";
 import { Card } from "../../../../components/Card/Card";
 import { Label } from "../../../../components/Label/Label";
+import { Pagination } from "../../../../components/Pagination/Pagination";
 import { IListItem, IPaginationData } from "../../types";
 
 interface IProps {
   news: Array<IListItem>;
   onPreviousClick: () => void;
   onNextClick: () => void;
-  onPaginationToggle: ()=>void;
+  onPaginationToggle: () => void;
   paginationData: IPaginationData;
   viewPagination: boolean;
   isPagination: boolean;
@@ -20,48 +21,42 @@ export function List({
   paginationData,
 
   isPagination,
-  onPaginationToggle
+  onPaginationToggle,
 }: IProps) {
   const startingIndex =
-    (paginationData.currPage * paginationData.itemsPerPage) + 1;
+    paginationData.currPage * paginationData.itemsPerPage + 1;
 
   return (
-    <div className="table">
-      <div className="table__main">
-      <div >
-          <div className="input__container" style={{display: "flex"}}>
-            <Button buttonType={isPagination ? ButtonTypes.danger : ButtonTypes.success} style={{marginLeft:"auto"}}
-              onClick={onPaginationToggle }
-            >{isPagination ? "Disable Pagination" : "Enable Pagination " }</Button>
-          </div>
-        </div>
-        <div className="table__main__content">
-          
-          {news.map((item, index) => (
-            <Card key={item.id} {...item} index={startingIndex + index} />
-          ))}
-        </div>
-        
-        {viewPagination && (
-          <div className="table__main__pagination">
+    <div className="item-list">
+      <div className="item-list__main">
+        <div>
+          <div className="flex">
             <Button
-              disabled={paginationData.currPage === 0 }
-              onClick={() => onPreviousClick()}
-              buttonType={ButtonTypes.plain}
-            >
-              Prev
-            </Button>
-            <span>{paginationData.currPage + 1}</span>
-            <Button
-              buttonType={ButtonTypes.plain}
-              onClick={() => onNextClick()}
-              disabled={
-                paginationData.currPage === paginationData.noOfPages - 1
+              buttonType={
+                isPagination ? ButtonTypes.danger : ButtonTypes.success
               }
+              className="ml-auto"
+              onClick={onPaginationToggle}
             >
-              Next
+              {isPagination ? "Disable Pagination" : "Enable Pagination "}
             </Button>
           </div>
+        </div>
+        <ul className="item-list__main__content">
+          {news.map((item, index) => (
+            <li key={item.id} className="item">
+              <Card {...item} index={startingIndex + index} />
+            </li>
+          ))}
+        </ul>
+
+        {viewPagination && (
+          <Pagination
+            totalPages={paginationData.noOfPages}
+            currPage={paginationData.currPage}
+            onNextClick={onNextClick}
+            onPreviousClick={onPreviousClick}
+          />
         )}
       </div>
     </div>

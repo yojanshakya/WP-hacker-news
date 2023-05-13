@@ -8,7 +8,8 @@
 @use "./components/card";
 @use "./components/errorBoundary";
 @use "./components/filter";
-@use "./components/table";
-
+@use "./components/item-list";
+@use "./components/pagination";
+@use "./components/spinner";
 
 @use "./utilities/utilities.scss";

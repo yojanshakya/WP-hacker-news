@@ -1,5 +1,5 @@
 
-.table {
+.item-list {
 	position: relative;	
 	flex-grow: 1;
 
@@ -29,14 +29,31 @@
 			overflow-y: scroll;
 		}
 
-		&__pagination{
-			padding: .75rem;
-			justify-content: end;
-			display: flex;
-			gap: .5rem;
-			align-items: center;
-		}
+		
 	}
 
 	
+}
+
+
+.item{
+	padding: 1rem;
+
+	&:nth-child(odd){
+		background-color: #232323;
+	}
+
+	&:nth-child(even){
+		background-color: #303030
+	}
+
+	&__title{
+		font-size: 1.3rem;
+		color:white
+	}
+
+	&__sub-title{
+		color: #d0d5dd;
+		font-size: 1rem;
+	}
 }

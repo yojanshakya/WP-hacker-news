@@ -3,6 +3,7 @@ import Filter from "./Components/Filter/Filter";
 import { List } from "./Components/List/List";
 import { IListItem, IPaginationData, ISortBy } from "./types";
 import { fetchHackerNews } from "./Api";
+import { Button } from "../../components/Button/Button";
 
 export default function MainPage() {
   const [news, setNews] = useState<Array<IListItem>>([]);
@@ -13,7 +14,6 @@ export default function MainPage() {
   const [sortBy, setSortBy] = useState<ISortBy>();
   const [isPagination, setIsPagination] = useState<boolean>(false);
 
-  // todo refactor
   const [paginationData, setPaginationData] = useState<IPaginationData>({
     noOfPages: 0,
     currPage: 0,
@@ -87,6 +87,7 @@ export default function MainPage() {
         setSortBy={setSortBy}
         sortBy={sortBy}
         onSearch={onSearch}
+        isLoading={loading}
       />
       {loading ? (
         <div className="shadow-card flex-grow-1">Loading...</div>
