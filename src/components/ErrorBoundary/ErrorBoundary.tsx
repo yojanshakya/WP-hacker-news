@@ -1,5 +1,6 @@
 import React from "react";
 import { CustomError } from "../../utils/error";
+import { TEST_ID_ERR_BOUNDARY } from "./testId";
 
 interface IState {
   error: Error | null;
@@ -24,7 +25,7 @@ export class ErrorBoundary extends React.Component<IProps, IState> {
   render(): React.ReactNode {
     if (this.state.error) {
       return (
-        <div className="error-boundary">
+        <div className="error-boundary" data-testId={TEST_ID_ERR_BOUNDARY}>
           <h1 className="error-boundary__heading">Oops something went wrong!</h1>
           {this.state.error instanceof CustomError
             ? this.state.error.message
