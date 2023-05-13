@@ -29,7 +29,7 @@ export function Button({
       className={`button ${props.className ?? ""} ${
         buttonClassMap[buttonType]
       }`}
-			disabled={props.disabled || isLoading}
+			disabled={!!props.disabled || isLoading}
     >
 			{
 				isLoading ? <Spinner/> : children
