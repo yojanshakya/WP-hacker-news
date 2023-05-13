@@ -7,10 +7,10 @@ interface IProps {
   news: Array<IListItem>;
   onPreviousClick: () => void;
   onNextClick: () => void;
+  onPaginationToggle: ()=>void;
   paginationData: IPaginationData;
   viewPagination: boolean;
   isPagination: boolean;
-  setIsPagination: React.Dispatch<React.SetStateAction<boolean>>;
 }
 export function List({
   news,
@@ -20,10 +20,10 @@ export function List({
   paginationData,
 
   isPagination,
-  setIsPagination,
+  onPaginationToggle
 }: IProps) {
   const startingIndex =
-    (paginationData.currPage - 1) * paginationData.itemsPerPage + 1;
+    (paginationData.currPage * paginationData.itemsPerPage) + 1;
 
   return (
     <div className="table">
@@ -31,7 +31,7 @@ export function List({
       <div >
           <div className="input__container" style={{display: "flex"}}>
             <Button buttonType={isPagination ? ButtonTypes.danger : ButtonTypes.success} style={{marginLeft:"auto"}}
-              onClick={()=> setIsPagination(!isPagination)}
+              onClick={onPaginationToggle }
             >{isPagination ? "Disable Pagination" : "Enable Pagination " }</Button>
           </div>
         </div>
@@ -45,13 +45,13 @@ export function List({
         {viewPagination && (
           <div className="table__main__pagination">
             <Button
-              disabled={paginationData.currPage == 1}
+              disabled={paginationData.currPage === 0 }
               onClick={() => onPreviousClick()}
               buttonType={ButtonTypes.plain}
             >
               Prev
             </Button>
-            <span>{paginationData.currPage}</span>
+            <span>{paginationData.currPage + 1}</span>
             <Button
               buttonType={ButtonTypes.plain}
               onClick={() => onNextClick()}

@@ -13,31 +13,28 @@ export default function MainPage() {
 
   const [paginationData, setPaginationData] = useState<IPaginationData>({
     noOfPages: 0,
-    currPage: 1,
+    currPage: 0,
     totalItems: 0,
     itemsPerPage: 0,
   });
 
-  const onFetchData = async (type: "search" | "next" | "previous") => {
-    let page: typeof paginationData.currPage;
-    // let hitsPerPage = 20;
+  const onFetchData = async (type: "search" | "next" | "previous" | "togglePagination") => {
+    let page: number | undefined;
 
-    if (type === "search") {
-      setIsPagination(false);
-      page = 1;
+    if(type === "togglePagination"){
+      page = isPagination ? undefined : 0;
+      setIsPagination((prev)=>!prev)
+    }else if (type === "search") {
+      setIsPagination(false)
+      page = undefined;
     } else if (type === "next") {
-      page = (paginationData.currPage || 0) + 1;
+      page = (paginationData.currPage) + 1;
     } else {
       page =
-        paginationData.currPage == 1
+        paginationData.currPage == 0
           ? paginationData.currPage
-          : (paginationData.currPage || 0) - 1;
+          : (paginationData.currPage) - 1;
     }
-
-    setPaginationData({
-      ...paginationData,
-      currPage: page,
-    });
 
     const data = await fetchHackerNews({
       search,
@@ -54,11 +51,13 @@ export default function MainPage() {
     });
   };
 
+  const onPaginationToggle = ()=>{
+    onFetchData("togglePagination");
+  }
+
   React.useEffect(() => {
     onFetchData("search");
-  }, [isPagination]);
-
-  
+  }, []);
 
   return (
     <div className="wrapper container">
@@ -75,8 +74,9 @@ export default function MainPage() {
           onSearch={() => onFetchData("search")}
         />
         <List
-          setIsPagination={setIsPagination}
+          onPaginationToggle={onPaginationToggle}
           isPagination={isPagination}
+          // todo move to top
           onPreviousClick={() => onFetchData("previous")}
           onNextClick={() => onFetchData("next")}
           news={news}

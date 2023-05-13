@@ -10,17 +10,16 @@ export const fetchHackerNews = async ({ page,sortBy,search}: {
 	page?: number,
 }) => {
 
-	// todo refactor
-	const url: "search" | "search_by_date" = sortBy == "latest" ? "search_by_date" : 'search';
+	const url = sortBy == "latest" ? "search_by_date" : 'search';
 
 	const params: {
 		tags: "front_page" | "story",
 		page?: number,
 		query?: string,
 	} = {
-		tags: search || sortBy == "latest" ? "story" : "front_page",
-		page,
+		tags: search || (sortBy == "latest") ? "story" : "front_page",
 		query: search || undefined,
+		page,
 	}
 
 
@@ -39,7 +38,7 @@ export const fetchHackerNews = async ({ page,sortBy,search}: {
 				likesCount: item.points,
 				title: item.title,
 				author: item.author,
-				storyURL: item.story_url,
+				storyURL: item.url,
 				noOfComments: item.num_comments,
 				time: item.created_at,
 				id: item.objectID

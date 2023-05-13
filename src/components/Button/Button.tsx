@@ -17,6 +17,6 @@ export function Button({ buttonType  = ButtonTypes.success,...props}: IProps) {
 	}
 
 	return (
-		<button {...props} className={`button ${props.className} ${buttonClassMap[buttonType] }`}/>
+		<button {...props} className={`button ${props.className ?? ""} ${buttonClassMap[buttonType] }`}/>
 	)
 }
