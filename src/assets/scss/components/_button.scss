@@ -1,0 +1,19 @@
+.button {
+  all: unset;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  text-align: center;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-transform: capitalize;
+  color: #07074d;
+
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 8px 16px;
+}

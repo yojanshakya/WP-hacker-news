@@ -1,4 +1,4 @@
-export type ISortBy = "latest" | "popular";
+export type ISortBy = "latest" | "popular" | undefined;
 
 export type IListItem =  {
   likesCount: number;
@@ -7,5 +7,13 @@ export type IListItem =  {
   storyURL: string;
   noOfComments: number;
   time: string;
+  id: string;
+}
+
+export interface IPaginationData {
+  noOfPages: number;
+  currPage: number;
+  totalItems: number;
+  itemsPerPage: number;
 }
 

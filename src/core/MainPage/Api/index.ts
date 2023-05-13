@@ -1,16 +1,13 @@
 import axios from 'axios'
-import {  ISortBy } from '../types';
+import { ISortBy } from '../types';
 
 // todo
 type IResponseType = any;
 
-
-export const fetchHackerNews = async ({ disablePagination = false,page,sortBy,search }: {
-	// todo store this in a type
+export const fetchHackerNews = async ({ page,sortBy,search}: {
 	sortBy?: ISortBy,
 	search?: string,
 	page?: number,
-	disablePagination?: boolean,
 }) => {
 
 	// todo refactor
@@ -19,11 +16,11 @@ export const fetchHackerNews = async ({ disablePagination = false,page,sortBy,se
 	const params: {
 		tags: "front_page" | "story",
 		page?: number,
-		query?: string
+		query?: string,
 	} = {
 		tags: search || sortBy == "latest" ? "story" : "front_page",
 		page,
-		query: search || undefined
+		query: search || undefined,
 	}
 
 
@@ -37,14 +34,22 @@ export const fetchHackerNews = async ({ disablePagination = false,page,sortBy,se
 			url
 		}
 	).then((response) => {
-		return response.data?.hits?.map((item: any) => ({
-			likesCount: item.points,
-			title: item.title,
-			author: item.author,
-			storyURL: item.story_url,
-			noOfComments: 300,
-			time: item.created_at
-		})) || []
+		return {
+			data: response.data?.hits?.map((item: any) => ({
+				likesCount: item.points,
+				title: item.title,
+				author: item.author,
+				storyURL: item.story_url,
+				noOfComments: item.num_comments,
+				time: item.created_at,
+				id: item.objectID
+			})) || [],
+			totalItems: response.data?.nbHits,
+			page: response.data?.page,
+			noOfPage: response.data?.nbPages,
+			itemsPerPage: response.data?.hitsPerPage
+		}
+
 	})
 }
 

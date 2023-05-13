@@ -4,6 +4,6 @@ export function Button(props: ComponentPropsWithRef<"button">) {
 	
 
 	return (
-		<button {...props}/>
+		<button {...props} className={`button ${props.className}`}/>
 	)
 }

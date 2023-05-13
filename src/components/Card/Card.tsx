@@ -1,4 +1,5 @@
 import React from 'react'
+import { timeDifference } from '../../utils/time'
 
 
 
@@ -9,21 +10,17 @@ interface IProps {
 	author: string,
 	storyURL: string,
 	noOfComments: number,
-	time: string
+	time: string,
+	index: number
 }
 
 export function Card(props: IProps) {
 	
-
 	return (
 		// todo remove style
-		<div style={{display: "flex"}}>
-			<span>Likes: {props.likesCount}</span>
-			<span>Title: {props.title}</span>
-			<span>Author: {props.author}</span>
-			<span>Website: {props.storyURL}</span>
-			<span>Time: {props.time}</span>
-			<span>Comments: {props.noOfComments}</span>
+		<div className='card'>
+			<p className='card__title'>{props.index}. {props.title}</p>
+			<p className='card__sub-title'>{props.likesCount} likes | By {props.title} {timeDifference(Date.now(), new Date(props.time).getTime())} | {props.noOfComments} comments</p>
 		</div>
 	)
 }
